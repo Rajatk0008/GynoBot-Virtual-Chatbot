@@ -1,6 +1,6 @@
-# 🚀 HealthBot - Virtual Gynecologist Assistant
+# 🚀 GynoBot - Virtual Gynecologist Assistant
 
-Welcome to HealthBot — your intelligent Virtual Gynecologist Assistant!
+Welcome to GynoBot — your intelligent Virtual Gynecologist Assistant!
 This web app helps users get answers to their health-related queries, particularly in women's health and gynecology, using a natural conversational flow.
 
 ## ✨ Features
