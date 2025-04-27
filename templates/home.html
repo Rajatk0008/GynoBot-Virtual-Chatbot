@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyno Bot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GynoBot-Gynecologist Assistant</h1>
+        <div class="chatbox">
+            {% for chat in chat_history %}
+                {% if chat.user %}
+                <div class="message user-message">
+                    {{ chat.user }}
+                </div>
+                {% endif %}
+                
+                <div class="message bot-message">
+                    {{ chat.bot | replace('\n', '<br>') | safe }}
+                </div>
+            {% endfor %}
+        </div>
+        <form id="chat-form" class="input-form">
+            <input type="text" id="user_input" name="user_input" placeholder="Ask your health-related question..." required>
+            <button type="submit" id="send-btn">Send</button>
+            <button type="button" id="clear-btn" class="clear-button">Clear Chat</button>
+        </form>
+        
+        
+    </div>
+    <script>
+        const form = document.getElementById('chat-form');
+        const userInputField = document.getElementById('user_input');
+        const chatbox = document.querySelector('.chatbox');
+        const clearButton = document.getElementById('clear-btn');
+    
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userText = userInputField.value.trim();
+            if (!userText) return;
+    
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user-message');
+            userMessageDiv.innerText = userText;
+            chatbox.appendChild(userMessageDiv);
+    
+            userInputField.value = '';
+            chatbox.scrollTop = chatbox.scrollHeight;
+    
+            const response = await fetch("/ask", {
+                method: "POST",
+                body: new URLSearchParams({ user_input: userText }),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                }
+            });
+    
+            const data = await response.json();
+            const botResponseText = data.bot_response;
+            const botResponseTextFormatted = botResponseText.replace(/\n/g, "<br>");
+    
+            const botMessageDiv = document.createElement('div');
+            botMessageDiv.classList.add('message', 'bot-message');
+            chatbox.appendChild(botMessageDiv);
+    
+            let i = 0;
+            const typingSpeed = 20;
+    
+            function typeWriter() {
+                if (i < botResponseTextFormatted.length) {
+                    if (botResponseTextFormatted.slice(i, i + 4) === "<br>") {
+                        botMessageDiv.innerHTML += "<br>";
+                        i += 4;
+                    } else {
+                        botMessageDiv.innerHTML += botResponseTextFormatted.charAt(i);
+                        i++;
+                    }
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                    setTimeout(typeWriter, typingSpeed);
+                }
+            }
+            typeWriter();
+        });
+    
+      
+        clearButton.addEventListener('click', async () => {
+            const response = await fetch("/clear", { method: "POST" });
+            const data = await response.text();
+    
+            document.open();
+            document.write(data);
+            document.close();
+        });
+    </script>
+    
+</body>
+</html>
