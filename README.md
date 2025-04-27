@@ -6,10 +6,15 @@ This web app helps users get answers to their health-related queries, particular
 ## ✨ Features
 
 🩺 Ask Health Queries: Users can ask any health-related questions.
+
 💬 Natural Chat Interface: Smooth chat experience with typing animation like ChatGPT.
+
 🎨 Modern UI: Stylish and mobile-responsive design with attractive fonts and colors.
+
 🔄 Clear Chat Option: Quickly reset the conversation with a "Clear Chat" button.
+
 ⚡ Fast Backend: Built using Flask and integrated with a powerful Gemini 2.0 model.
+
 🛡️ Secure Input Handling: User inputs are safely managed.
 
 ## 📸 Demo Screenshot
