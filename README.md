@@ -12,6 +12,14 @@ This web app helps users get answers to their health-related queries, particular
 ⚡ Fast Backend: Built using Flask and integrated with a powerful Gemini 2.0 model.
 🛡️ Secure Input Handling: User inputs are safely managed.
 
+## 📸 Demo Screenshot
+Home page 
+![gynobot-home](https://github.com/user-attachments/assets/250e3880-29c6-4f0d-a187-84204c7b4d4d)
+Chat interaction
+![gynobot-chat](https://github.com/user-attachments/assets/187dc7d3-72f6-4f43-8404-ed7564d842a6)
+
+
+
 ## Installation
 
 Follow these steps to set up and run the project locally:
@@ -42,3 +50,4 @@ Follow these steps to set up and run the project locally:
    ```
 
 6. Visit `http://127.0.0.1:5000/` in your browser to interact with HealthBot.
+
